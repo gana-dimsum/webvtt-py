@@ -46,7 +46,7 @@ class WebVTTSegmenter(object):
 
     def _write_segments(self):
         for index in range(self.total_segments):
-            segment_file = os.path.join(self._output_folder, 'fileSequence{}.webvtt'.format(index))
+            segment_file = os.path.join(self._output_folder, '{}{}.webvtt'.format(self._webvttname, index))
 
             with open(segment_file, 'w', encoding='utf-8') as f:
                 f.write('WEBVTT\n')
@@ -57,7 +57,7 @@ class WebVTTSegmenter(object):
                     f.writelines(['{}\n'.format(l) for l in caption.lines])
 
     def _write_manifest(self):
-        manifest_file = os.path.join(self._output_folder, 'prog_index.m3u8')
+        manifest_file = os.path.join(self._output_folder, '{}.m3u8'.format(self._webvttname))
         with open(manifest_file, 'w', encoding='utf-8') as f:
             f.write('#EXTM3U\n')
             f.write('#EXT-X-TARGETDURATION:{}\n'.format(self.seconds))
@@ -66,7 +66,7 @@ class WebVTTSegmenter(object):
 
             for i in range(self.total_segments):
                 f.write('#EXTINF:30.00000\n')
-                f.write('fileSequence{}.webvtt\n'.format(i))
+                f.write('{}{}.webvtt\n'.format(self._webvttname, i))
 
             f.write('#EXT-X-ENDLIST\n')
 
@@ -85,6 +85,9 @@ class WebVTTSegmenter(object):
         self._output_folder = output
         self._seconds = seconds
         self._mpegts = mpegts
+
+        webvtt_name = os.path.splitext(webvtt)[0]
+        self._webvttname = webvtt_name
 
         output_folder = os.path.join(os.getcwd(), output)
         if not os.path.exists(output_folder):
