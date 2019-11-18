@@ -66,7 +66,7 @@ class WebVTTSegmenter(object):
 
             for i in range(self.total_segments):
                 f.write('#EXTINF:30.00000\n')
-                f.write('{}{}.webvtt\n'.format(self._webvttname, i))
+                f.write('{}{}.webvtt\n'.format(os.path.basename(self._webvttname), i))
 
             f.write('#EXT-X-ENDLIST\n')
 
@@ -86,8 +86,7 @@ class WebVTTSegmenter(object):
         self._seconds = seconds
         self._mpegts = mpegts
 
-        webvtt_file = os.path.basename(webvtt)
-        webvtt_name = os.path.splitext(webvtt_file)[0]
+        webvtt_name = os.path.splitext(webvtt)[0]
         self._webvttname = webvtt_name
 
         output_folder = os.path.join(os.getcwd(), output)
