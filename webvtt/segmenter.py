@@ -46,7 +46,7 @@ class WebVTTSegmenter(object):
 
     def _write_segments(self):
         for index in range(self.total_segments):
-            segment_file = os.path.join(self._output_folder, '{}{}00.webvtt'.format(self._webvttname, index))
+            segment_file = os.path.join(self._output_folder, '{}{}.webvtt'.format(self._webvttname, index))
 
             with open(segment_file, 'w', encoding='utf-8') as f:
                 f.write('WEBVTT\n')
@@ -86,7 +86,8 @@ class WebVTTSegmenter(object):
         self._seconds = seconds
         self._mpegts = mpegts
 
-        webvtt_name = os.path.splitext(webvtt)[0]
+        webvtt_file = os.path.basename(webvtt)
+        webvtt_name = os.path.splitext(webvtt_file)[0]
         self._webvttname = webvtt_name
 
         output_folder = os.path.join(os.getcwd(), output)
