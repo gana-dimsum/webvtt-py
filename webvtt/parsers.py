@@ -54,7 +54,7 @@ class TextBasedParser(object):
         lines = [line.rstrip('\n') for line in file_obj.readlines()]
 
         if not lines:
-            raise MalformedFileError('The {} file is empty.'.format(file))
+            raise MalformedFileError('The {} file is empty.'.format(file_obj))
 
         return lines
 
