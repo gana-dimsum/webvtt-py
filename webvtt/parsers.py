@@ -18,14 +18,12 @@ class TextBasedParser(object):
     def __init__(self, parse_options=None):
         self.captions = []
         self.parse_options = parse_options or {}
-        self._filename = ''
 
     def read(self, file):
         """Reads the captions file."""
         content = self._get_content_from_file(file_path=file)
         self._validate(content)
         self._parse(content)
-        self._filename = file
 
         return self
 
@@ -56,7 +54,7 @@ class TextBasedParser(object):
         lines = [line.rstrip('\n') for line in file_obj.readlines()]
 
         if not lines:
-            raise MalformedFileError('The {} file is empty.', format(self._filename))
+            raise MalformedFileError('The file is empty.')
 
         return lines
 
