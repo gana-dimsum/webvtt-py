@@ -49,12 +49,12 @@ class TextBasedParser(object):
         else:
             return 'utf-8'
 
-    def _read_content_lines(self, file_obj, file):
+    def _read_content_lines(self, file_obj):
 
         lines = [line.rstrip('\n') for line in file_obj.readlines()]
 
         if not lines:
-            raise MalformedFileError('The {} file is empty.'.format(file))
+            raise MalformedFileError('The {} file is empty.'.format(self._file))
 
         return lines
 
